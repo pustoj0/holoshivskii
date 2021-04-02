@@ -1,0 +1,24 @@
+{% extends "layout.html" %}
+{% block content %}
+
+    <div id="main-section">
+
+        <div id="display-message-section">
+            <!-- Flash error messages -->
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    <p class=formError >{{ messages[0] }}</p>
+                {% endif %}
+            {% endwith %}
+
+            <form action="{{ url_for('create_room') }}", method="POST">
+                <label style="padding-left: 20px"><h5>Roomname:</h5></label>
+                {{ form.roomname }}
+                <div class="form-group" style="padding-left: 20px">
+                    <input type="submit" value="Submit" class="btn btn-warning">
+                </div>
+                {{ form.csrf_token }}
+            </form>
+        </div>
+    </div>
+{% endblock %}

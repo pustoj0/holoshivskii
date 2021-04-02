@@ -1,0 +1,35 @@
+{% extends "layout.html" %}
+{% block content %}
+
+
+    <div id="main-section">
+
+        <div id="display-message-section">
+
+            <!-- Flash error messages -->
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    <p class=formError >{{ messages[0] }}</p>
+                {% endif %}
+            {% endwith %}
+
+            <form action="{{ url_for('add_friend') }}", method="POST">
+                    <label style="padding-left: 20px"><h5>Room name:</h5></label>
+                    <select name="room_id">
+                        <option disabled> Choose the room</option>
+                        {% for room in rooms %}
+                                <option value="{{ room.id }}" class="select-room cursor-pointer">{{room.title }}</option>
+                        {% endfor %}
+                    </select>
+                    <br>
+                    <label style="padding-left: 20px"><h5>Friend name:</h5></label>
+                    {{ form.friend }}
+
+                <div class="form-group" style="padding-left: 20px">
+                    <input type="submit" value="Submit" class="btn btn-warning">
+                </div>
+                {{ form.csrf_token }}
+            </form>
+        </div>
+    </div>
+{% endblock %}

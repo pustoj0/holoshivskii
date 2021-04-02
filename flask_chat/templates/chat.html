@@ -1,0 +1,61 @@
+{% extends "layout.html" %}
+{% block content %}
+
+             <!-- Main section start -->
+                <div id="main-section">
+
+                    <!-- Sidebar start -->
+                    <nav id="sidebar" >
+                        <h4>Rooms</h4>
+                        {% for room in rooms %}
+                            <p  id="{{ room|title }}" class="select-room cursor-pointer">{{ room|title }}</p>
+                        {% endfor %}
+                        <hr>
+                        <a href="{{ url_for('create_room')}}"><button style="color:blue;width: 155px">Create new room</button></a><br>
+                        <a href="{{ url_for('delete_room')}}"><button style="color:red;width: 155px">Delete your room</button></a><br>
+                        <a href="{{ url_for('leave_room_per')}}"><button style="color:darkgreen;width: 155px">Leave room</button></a>
+                        <hr>
+                        <a href="{{ url_for('add_friend')}}"><button style="color:purple;width: 155px">Add friend to room</button></a>
+                        <hr>
+                        {% if role=='admin' %}
+                           <a href="{{ url_for('home_admin')}}"><button style="color:black;width: 155px">Administration</button></a>
+                        {% endif %}
+
+
+                    </nav>
+
+                    <div id="rightside-pannel">
+
+                        <!-- Display message start-->
+                        <div id="display-message-section">
+                        </div>
+                        <!-- Display message end -->
+
+                        <!-- Type message start -->
+                       <div id="input-area" class="input-group mb-3">
+                            <input type="text" id="user_message" class="form-control" placeholder="Type here..." aria-label="Type a message" aria-describedby="basic-addon2" autocomplete="off">
+                            <div class="input-group-append">
+                                <button id="send_message" class="btn btn-warning" type="button">SEND <i class="fas fa-paper-plane"></i></button>
+                            </div>
+                        </div>
+                        <!-- Type message end -->
+                    </div>
+                    <!-- Rightside pannel end -->
+                </div>
+{% endblock content %}
+
+{% block js_connect %}
+
+        <!-- Custom chat JS -->
+        <script src="{{ url_for('static', filename='scripts/chat_page.js') }}"></script>
+
+        <!-- SocketIO JS -->
+        <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.6/socket.io.min.js"></script>
+
+        <!-- Custom SocketIO JS -->
+        <script src="{{ url_for('static', filename='scripts/socketio.js') }}"></script>
+
+        <!-- Font Awesome JS -->
+        <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
+        <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
+{% endblock js_connect %}
